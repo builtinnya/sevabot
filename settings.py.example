@@ -1,4 +1,3 @@
-
 #: Known shared secret key in order to send messages over HTTP interface
 SHARED_SECRET = "koskela"
 
@@ -21,9 +20,15 @@ HTTP_HOST = "localhost"
 #: Which port we run our HTTP interface
 HTTP_PORT = 5000
 
-#: Set logging level (INFO or DEBUG)
+#: Set global logging level (INFO or DEBUG)
 #: This setting overrides --verbose option
-#: LOG_LEVEL = "INFO"
+#LOG_LEVEL = "INFO"
+
+#: Set module logging levels
+#: Settings for all modules
+#MODULE_LOG_LEVELS = "INFO"
+#: Per-module setting
+#MODULE_LOG_LEVELS = {"tasks": "DEBUG"}
 
 #: Setup Python logging for Sevabot
 #: Absolute path or relative to the settings file location

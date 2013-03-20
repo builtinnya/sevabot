@@ -4,6 +4,7 @@
 
 """
 
+import imp
 import hashlib
 import logging
 
@@ -58,3 +59,34 @@ def get_chat_id(chat):
     m.update(chat.Name)
     return m.hexdigest()
 
+
+def load_settings(filename="settings.py"):
+    """
+    Load the global settings file.
+
+    :return: Settings module.
+    """
+
+    try:
+        settings = imp.load_source("settings", filename)
+    except Exception:
+        import traceback
+        traceback.print_exc()
+        sys.exit("Could not load settings file: %s" % settings)
+
+    return settings
+
+
+def get_module_log_level(module_name):
+    """
+    Get log level of the module from the global settings.
+    """
+
+    settings = load_settings()
+
+    levels = getattr(settings, "MODULE_LOG_LEVELS", "INFO")
+
+    if type(levels) is str:
+        return getattr(logging, levels.upper(), "INFO")
+
+    return getattr(logging, levels.get(module_name, "INFO").upper(), "INFO")

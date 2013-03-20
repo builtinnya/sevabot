@@ -1,5 +1,4 @@
 #!/sevabot
-
 # -*- coding: utf-8 -*-
 
 """
@@ -11,12 +10,11 @@ import logging
 import Skype4Py
 
 from sevabot.bot.stateful import StatefulSkypeHandler
-from sevabot.utils import ensure_unicode
+from sevabot.utils import ensure_unicode, get_module_log_level
 
-logger = logging.getLogger('Call')
+logger = logging.getLogger('sevabot.modules.Call')
 
-# Set to debug only during dev
-logger.setLevel(logging.INFO)
+logger.setLevel(get_module_log_level(__name__))
 
 logger.debug('Call module level load import')
 

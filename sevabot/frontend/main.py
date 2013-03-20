@@ -6,7 +6,6 @@
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import imp
 import sys
 import logging
 import logging.handlers
@@ -20,6 +19,7 @@ import plac
 
 from sevabot.frontend import api
 from sevabot.frontend.daemon import create_daemon
+from sevabot.utils import load_settings
 
 logger = logging.getLogger("sevabot")
 
@@ -64,12 +64,7 @@ def main(settings="settings.py", verbose=False, daemon=False):
     """
 
     # Expose settings global module
-    try:
-        settings = imp.load_source("settings", settings)
-    except Exception:
-        import traceback
-        traceback.print_exc()
-        sys.exit("Could not load settings file: %s" % settings)
+    settings = load_settings(settings)
 
     # Config logging
 

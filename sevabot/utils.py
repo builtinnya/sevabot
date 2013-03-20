@@ -5,6 +5,7 @@
 """
 
 import imp
+import sys
 import hashlib
 import logging
 

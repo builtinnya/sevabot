@@ -8,7 +8,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys
 import logging
-import logging.handlers
+import logging.config
 import os
 
 from flask import Flask
@@ -58,7 +58,7 @@ def get_settings():
     verbose=("Verbose debug output", 'flag', 'v', None, None),
     daemon=("Start as a detached background process", 'flag', 'd', None, None),
 )
-def main(settings="settings.py", verbose=False, daemon=False):
+def main(settings="settings.py", logconf="logging.conf", verbose=False, daemon=False):
     """
     Application entry point.
     """
@@ -67,28 +67,7 @@ def main(settings="settings.py", verbose=False, daemon=False):
     settings = load_settings(settings)
 
     # Config logging
-
-    level = getattr(logging, getattr(settings, "LOG_LEVEL", "INFO").upper(), "INFO")
-
-    logging.basicConfig(level=level, stream=sys.stdout, format=settings.LOG_FORMAT)
-
-    # Setup logging file
-    if getattr(settings, "LOG_FILE", None):
-        if not settings.LOG_FILE.startswith("/"):
-            log_path = settings.LOG_FILE
-        else:
-            log_path = os.path.join(os.path.dirname(settings.__file__), settings.LOG_FILE)
-
-        formatter = logging.Formatter(settings.LOG_FORMAT)
-
-        hdlr = logging.handlers.RotatingFileHandler(log_path,
-                                                    encoding="utf-8",
-                                                    maxBytes=settings.LOG_ROTATE_MAX_SIZE,
-                                                    backupCount=settings.LOG_ROTATE_COUNT)
-
-        hdlr.setFormatter(formatter)
-
-        logger.addHandler(hdlr)
+    logging.config.fileConfig(logconf, disable_existing_loggers=False)
 
     logger.info("Starting sevabot")
 

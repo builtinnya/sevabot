@@ -17,11 +17,9 @@ import pickle
 from collections import OrderedDict
 
 from sevabot.bot.stateful import StatefulSkypeHandler
-from sevabot.utils import ensure_unicode, get_chat_id, get_module_log_level
+from sevabot.utils import ensure_unicode, get_chat_id
 
-logger = logging.getLogger("sevabot.modules.Tasks")
-
-logger.setLevel(get_module_log_level(__name__))
+logger = logging.getLogger(__name__)
 
 logger.debug("Tasks module level load import")
 

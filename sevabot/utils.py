@@ -76,18 +76,3 @@ def load_settings(filename="settings.py"):
         sys.exit("Could not load settings file: %s" % settings)
 
     return settings
-
-
-def get_module_log_level(module_name):
-    """
-    Get log level of the module from the global settings.
-    """
-
-    settings = load_settings()
-
-    levels = getattr(settings, "MODULE_LOG_LEVELS", "INFO")
-
-    if type(levels) is str:
-        return getattr(logging, levels.upper(), "INFO")
-
-    return getattr(logging, levels.get(module_name, "INFO").upper(), "INFO")

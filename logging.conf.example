@@ -1,0 +1,38 @@
+# http://docs.python.org/library/logging.config.html
+
+[loggers]
+keys=root,sevabot
+#: Customize loggers for modules as below
+#keys=root,sevabot,tasks
+
+#: An example for customizing the logging level of tasks module
+#[logger_tasks]
+#level=DEBUG
+#handlers=sevabot
+#qualname=tasks
+
+[handlers]
+keys=sevabot
+
+[formatters]
+keys=sevabot
+
+[logger_root]
+level=NOTSET
+handlers=
+
+[logger_sevabot]
+level=INFO
+handlers=sevabot
+qualname=sevabot
+
+[handler_sevabot]
+class=handlers.RotatingFileHandler
+formatter=sevabot
+args=('logs/sevabot.log', 'a', 1024 * 1024, 10, 'utf-8')
+      # filename, mode, maxBytes, backupCount, encoding
+
+[formatter_sevabot]
+# http://docs.python.org/library/logging.html
+format=%(asctime)s - %(name)s - %(levelname)s - %(message)s
+class=logging.Formatter

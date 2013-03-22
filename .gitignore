@@ -55,6 +55,7 @@ virtualenv.py
 tests/test-installation-environment
 settings.py
 Skype4Py
+logging.conf
 
 .vagrant
 .idea
